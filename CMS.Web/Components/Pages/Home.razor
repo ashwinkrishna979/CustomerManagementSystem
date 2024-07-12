@@ -9,7 +9,7 @@
 <h1>Customers</h1>
 
 
-@if (forecasts == null)
+@if (customers == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -26,15 +26,15 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var forecast in forecasts)
+            @foreach (var customer in customers)
             {
                 <tr>
-                    <td>@forecast.Date.ToShortDateString()</td>
-                    <td>@forecast.TemperatureC</td>
-                    <td>@forecast.TemperatureF</td>
-                    <td>@forecast.Summary</td>
+                    <td>@customer.ID</td>
+                    <td>@customer.Name</td>
+                    <td>@customer.Email</td>
+                    <td>@customer.Phone</td>
                     <td>
-                        <button class="btn btn-primary" >Edit</button>
+                        <button class="btn btn-primary">Edit</button>
                         <button class="btn btn-danger">Delete</button>
                     </td>
                 </tr>
@@ -44,37 +44,36 @@ else
 }
 
 @code {
-    private WeatherForecast[]? forecasts;
+    private Customer[]? customers;
 
     protected override async Task OnInitializedAsync()
     {
         // Simulate asynchronous loading to demonstrate streaming rendering
         await Task.Delay(500);
+        customers = customerData.ToArray();
 
-        var startDate = DateOnly.FromDateTime(DateTime.Now);
-        var summaries = new[] { "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching" };
-        forecasts = Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = startDate.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = summaries[Random.Shared.Next(summaries.Length)]
-            }).ToArray();
     }
 
-    private class WeatherForecast
-    {
-        public DateOnly Date { get; set; }
-        public int TemperatureC { get; set; }
-        public string? Summary { get; set; }
-        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-    }
-
-    private class Customers
+    private class Customer
     {
         public Guid ID { get; set; }
         public string? Name { get; set; }
         public string? Email { get; set; }
         public string? Phone { get; set; }
     }
+
+    private List<Customer> customerData = new List<Customer>
+    {
+        new Customer { ID = Guid.NewGuid(), Name = "John Doe", Email = "john.doe@example.com", Phone = "123-456-7890" },
+        new Customer { ID = Guid.NewGuid(), Name = "Jane Smith", Email = "jane.smith@example.com", Phone = "987-654-3210" },
+        new Customer { ID = Guid.NewGuid(), Name = "Robert Brown", Email = "robert.brown@example.com", Phone = "555-555-5555" },
+        new Customer { ID = Guid.NewGuid(), Name = "Emily Davis", Email = "emily.davis@example.com", Phone = "111-222-3333" },
+        new Customer { ID = Guid.NewGuid(), Name = "Michael Wilson", Email = "michael.wilson@example.com", Phone = "444-555-6666" },
+        new Customer { ID = Guid.NewGuid(), Name = "Sarah Johnson", Email = "sarah.johnson@example.com", Phone = "777-888-9999" },
+        new Customer { ID = Guid.NewGuid(), Name = "David Lee", Email = "david.lee@example.com", Phone = "000-111-2222" },
+        new Customer { ID = Guid.NewGuid(), Name = "Laura White", Email = "laura.white@example.com", Phone = "333-444-5555" },
+        new Customer { ID = Guid.NewGuid(), Name = "James Taylor", Email = "james.taylor@example.com", Phone = "666-777-8888" },
+        new Customer { ID = Guid.NewGuid(), Name = "Linda Harris", Email = "linda.harris@example.com", Phone = "999-000-1111" }
+    };
 }
 
