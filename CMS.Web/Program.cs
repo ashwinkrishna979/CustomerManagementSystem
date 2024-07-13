@@ -1,10 +1,21 @@
 using CMS.Web.Components;
+using CMS.Data.Repositories;
+using CMS.UseCases.DataInterfaces;
+using CMS.UseCases.UseCaseInterfaces;
+using CMS.UseCases.UseCases;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+//Repository Dependencies
+builder.Services.AddScoped<ICustomerRepository,HardcodedDataRepository>();
+
+//UseCase Dependencies
+builder.Services.AddScoped<ICustomerUseCase,CustomerUseCase>();
 
 var app = builder.Build();
 
