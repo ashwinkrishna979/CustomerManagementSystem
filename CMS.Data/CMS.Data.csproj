@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CMS.CoreBusiness\CMS.CoreBusiness.csproj" />
+    <ProjectReference Include="..\CMS.UseCases\CMS.UseCases.csproj" />
+  </ItemGroup>
+
 </Project>
