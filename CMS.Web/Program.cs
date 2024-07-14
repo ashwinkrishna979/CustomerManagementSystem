@@ -2,7 +2,10 @@ using CMS.Web.Components;
 using CMS.Data.Repositories;
 using CMS.UseCases.DataInterfaces;
 using CMS.UseCases.UseCaseInterfaces;
+using Microsoft.EntityFrameworkCore;
+
 using CMS.UseCases.UseCases;
+using CMS.Data.Context;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,9 +13,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+builder.Services.AddDbContext<CMSDBContext>(options =>
+            options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 //Repository Dependencies
-builder.Services.AddScoped<ICustomerRepository,HardcodedDataRepository>();
+builder.Services.AddScoped<ICustomerRepository,CustomerRepository>();
 
 //UseCase Dependencies
 builder.Services.AddScoped<ICustomerUseCase,CustomerUseCase>();
