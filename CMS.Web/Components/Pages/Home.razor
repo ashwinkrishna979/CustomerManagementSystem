@@ -6,7 +6,14 @@
 
 <PageTitle>Home</PageTitle>
 
-<h1>Customers</h1>
+<h1 style="display: flex; justify-content: space-between; align-items: center;">
+    Customers
+    <button class="btn btn-primary">
+        <span class="material-icons">
+            add_person
+        </span>
+    </button>
+</h1>
 
 
 @if (customers == null)
@@ -18,6 +25,7 @@ else
     <table class="table">
         <thead>
             <tr>
+                <th>Id</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Phone</th>
@@ -28,12 +36,22 @@ else
             @foreach (var customer in customers)
             {
                 <tr>
+                    <td>@customer.Id</td>
                     <td>@customer.Name</td>
                     <td>@customer.Email</td>
                     <td>@customer.Phone</td>
                     <td>
-                        <button class="btn btn-primary" @onclick="() => EditCustomer(customer)">Edit</button>
-                        <button class="btn btn-danger">Delete</button>
+                        <button class="btn btn-primary" @onclick="() => EditCustomer(customer)">
+                            <span class="material-icons">
+                                edit
+                            </span>
+                        </button>
+
+                        <button class="btn btn-danger">
+                            <span class="material-icons">
+                                delete
+                            </span>
+                        </button>
                     </td>
                 </tr>
             }
@@ -66,8 +84,8 @@ else
 
     </Body>
     <Footer>
-        <button type="button" class="btn btn-primary">Save</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="() => modal.Close()">Cancel</button>
+        <button type="button" class="btn btn-primary" @onclick="SaveCustomer">Save</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" @onclick="() => modal.Close()">Cancel</button>
     </Footer>
 </Modal>
 

@@ -36,5 +36,10 @@ namespace CMS.Web.Components.Pages
             };
             modal.Open();
         }
+
+        private void SaveCustomer()
+        {
+
+        }
         }
 }
