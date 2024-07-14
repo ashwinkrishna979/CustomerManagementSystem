@@ -6,6 +6,10 @@ namespace CMS.Web.Components.Pages
     {
         private Customer[]? customers;
         private List<Customer>? customerData;
+        private Customer selectedCustomer;
+
+        private Modal modal { get; set; }
+        
         protected override async Task OnInitializedAsync()
         {
             // Simulate asynchronous loading to demonstrate streaming rendering
@@ -15,6 +19,17 @@ namespace CMS.Web.Components.Pages
             
             customers = customerData.ToArray();
 
+        }
+        private void EditCustomer(Customer customer)
+        {
+            // Clone the customer to avoid direct modification
+            selectedCustomer = new Customer
+            {
+                Name = customer.Name,
+                Email = customer.Email,
+                Phone = customer.Phone
+            };
+            modal.Open();
         }
         }
 }
