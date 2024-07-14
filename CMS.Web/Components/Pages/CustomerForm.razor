@@ -1,0 +1,27 @@
+@using CMS.CoreBusiness.Models;
+
+
+<div class="card mt-3">
+    <div class="card-body">
+        <form>
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" @bind="SelectedCustomer!.Name">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" @bind="SelectedCustomer!.Email">
+            </div>
+            <div class="mb-3">
+                <label for="phone" class="form-label">Phone</label>
+                <input type="tel" class="form-control" id="phone" @bind="SelectedCustomer!.Phone">
+            </div>
+        </form>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public Customer? SelectedCustomer{get;set;}
+}

@@ -8,7 +8,7 @@
 
 <h1 style="display: flex; justify-content: space-between; align-items: center;">
     Customers
-    <button class="btn btn-primary">
+    <button class="btn btn-primary"  @onclick="() => AddCustomer()">
         <span class="material-icons">
             add_person
         </span>
@@ -60,32 +60,25 @@ else
 }
 
 
-<Modal @ref="modal">
+<Modal @ref="editModal">
     <Title>Edit Customer</Title>
     <Body>
-    <div class="card mt-3">
-        <div class="card-body">
-            <form>
-                <div class="mb-3">
-                    <label for="name" class="form-label">Name</label>
-                    <input type="text" class="form-control" id="name" @bind="selectedCustomer.Name">
-                </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" @bind="selectedCustomer.Email">
-                </div>
-                <div class="mb-3">
-                    <label for="phone" class="form-label">Phone</label>
-                    <input type="tel" class="form-control" id="phone" @bind="selectedCustomer.Phone">
-                </div>
-            </form>
-        </div>
-    </div>
-
+        <CustomerForm SelectedCustomer="selectedCustomer" />
     </Body>
     <Footer>
         <button type="button" class="btn btn-primary" @onclick="SaveCustomer">Save</button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal" @onclick="() => modal.Close()">Cancel</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" @onclick="() => editModal!.Close()">Cancel</button>
+    </Footer>
+</Modal>
+
+<Modal @ref="addModal">
+    <Title>Add Customer</Title>
+    <Body>
+        <CustomerForm SelectedCustomer="selectedCustomer" />
+    </Body>
+    <Footer>
+        <button type="button" class="btn btn-primary" @onclick="SaveCustomer">Save</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" @onclick="() => addModal!.Close()">Cancel</button>
     </Footer>
 </Modal>
 

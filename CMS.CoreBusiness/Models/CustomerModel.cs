@@ -15,4 +15,6 @@ namespace CMS.CoreBusiness.Models
             [Required]
             public required string Phone { get; set; }
         }
+
+        
 }
