@@ -117,7 +117,6 @@ namespace CMS.Web.Components.Pages
             {
                 Console.WriteLine($"Error in saving customer deletion: {SaveCustomerDeletionErr.Message}");
             }
-
         }
 
     }
