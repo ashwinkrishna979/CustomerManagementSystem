@@ -14,7 +14,21 @@ namespace CMS.UseCases.UseCases
         public async Task<List<Customer>> GetCustomers()
         {
             return await customerRepository.GetCustomersAsync();
+        }
 
+        public async Task AddCustomer(Customer customer)
+        {
+            await customerRepository.AddCustomerAsync(customer);
+        }
+
+        public async Task EditCustomer(Customer customer)
+        {
+            await customerRepository.EditCustomerAsync(customer);
+        }
+
+        public async Task DeleteCustomer(Customer customer)
+        {
+            await customerRepository.DeleteCustomerAsync(customer.Id);
         }
     }
 }

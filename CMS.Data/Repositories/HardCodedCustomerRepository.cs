@@ -22,6 +22,43 @@ public class HardcodedDataRepository: ICustomerRepository
     {
         return await Task.Run(() => customerData);
     }
-
     
+    public async Task AddCustomerAsync(Customer customer)
+    {
+        await Task.Delay(0);
+        if (customerData.Count == 0)
+        {
+            customer.Id = 1;
+        }
+        else
+        {
+            int maxId = customerData.Max(c => c.Id);
+            customer.Id = maxId + 1;
+        }
+            customerData.Add(customer);
+    }
+
+    public async Task EditCustomerAsync(Customer customer)
+    {
+        await Task.Delay(0);
+
+        var existingCustomer = customerData.FirstOrDefault(c => c.Id == customer.Id);
+        if (existingCustomer != null)
+        {
+            existingCustomer.Name = customer.Name;
+            existingCustomer.Email = customer.Email;
+            existingCustomer.Phone = customer.Phone;
+        }
+    }
+
+    public async Task DeleteCustomerAsync(int customerId)
+    {
+        await Task.Delay(0);
+
+        var customerToRemove = customerData.FirstOrDefault(c => c.Id == customerId);
+        if (customerToRemove != null)
+        {
+            customerData.Remove(customerToRemove);
+        }
+    }   
 }

@@ -18,9 +18,8 @@ namespace CMS.Web.Components.Pages
         protected override async Task OnInitializedAsync()
         {        
             await Task.Delay(500);
-            customerData=await CustomerUseCase.GetCustomers();
-            
-            customers = customerData.ToArray();
+            await FetchCustomerData();
+
         }
 
         private void InitializeDefaultCustomer()
@@ -31,6 +30,12 @@ namespace CMS.Web.Components.Pages
                 Email = string.Empty,
                 Phone = string.Empty,
             };
+        }
+
+        private async Task FetchCustomerData()
+        {
+            customerData=await CustomerUseCase.GetCustomers();
+            customers = customerData.ToArray();
 
         }
         private void EditCustomer(Customer customer)
@@ -54,5 +59,21 @@ namespace CMS.Web.Components.Pages
         {
 
         }
+
+        private async void SaveNewCustomer()
+        {
+            try
+            {
+                await CustomerUseCase.AddCustomer(selectedCustomer);
+                addModal!.Close();
+                await FetchCustomerData();
+                StateHasChanged();
+
+            }
+            catch (Exception SaveNewCustomerErr){
+                Console.WriteLine($"Error in saving new customer: {SaveNewCustomerErr.Message}");
+            }
         }
+
+    }
 }
