@@ -47,7 +47,7 @@ else
                             </span>
                         </button>
 
-                        <button class="btn btn-danger">
+                        <button class="btn btn-danger" @onclick="() => DeleteCustomer(customer)">
                             <span class="material-icons">
                                 delete
                             </span>
@@ -59,6 +59,7 @@ else
     </table>
 }
 
+@* Modals *@
 
 <Modal @ref="editModal">
     <Title>Edit Customer</Title>
@@ -66,7 +67,7 @@ else
         <CustomerForm SelectedCustomer="selectedCustomer" />
     </Body>
     <Footer>
-        <button type="button" class="btn btn-primary" @onclick="SaveCustomer">Save</button>
+        <button type="button" class="btn btn-primary" @onclick="SaveCustomerChange">Save</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal" @onclick="() => editModal!.Close()">Cancel</button>
     </Footer>
 </Modal>
@@ -79,6 +80,23 @@ else
     <Footer>
         <button type="button" class="btn btn-primary" @onclick="SaveNewCustomer">Save</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal" @onclick="() => addModal!.Close()">Cancel</button>
+    </Footer>
+</Modal>
+
+<Modal @ref="deleteModal">
+    <Title>Delete Customer</Title>
+    <Body>
+    <div style="text-align: center;">
+    <div style="display: inline-flex; justify-content: center; align-items: center; width: 50px; height: 50px; border-radius: 50%; background-color: red; margin-bottom: 10px;">
+        <span class="material-icons" style="font-size: 24px; color: white;">priority_high</span>
+    </div>        
+    <h3>Are you sure?</h3>
+        <p>Do you really want to delete this record? This process cannot be undone.</p>
+    </div>
+    </Body>
+    <Footer>
+        <button type="button" class="btn btn-danger" @onclick="SaveCustomerDeletion">Delete</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" @onclick="() => deleteModal!.Close()">Cancel</button>
     </Footer>
 </Modal>
 
