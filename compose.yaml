@@ -1,0 +1,66 @@
+version: '3.8' 
+
+networks:
+  dev:
+    driver: bridge
+services:
+  server:
+    build:
+      context: .
+      target: final
+    depends_on:
+      app_db:
+        condition: service_healthy
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USERNAME=${POSTGRES_USERNAME}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_EXTERNAL_PORT=${POSTGRES_EXTERNAL_PORT}
+      - ConnectionStrings__DefaultConnection=User ID=${POSTGRES_USERNAME};Password=${POSTGRES_PASSWORD};Server=app_db;Port=${POSTGRES_EXTERNAL_PORT};Database=${POSTGRES_DB}; Pooling=true;Timeout=30;
+      - ASPNETCORE_URLS=http://+:8080
+    networks:
+      - dev
+    ports:
+      - 8080:8080
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2048M 
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+
+  app_db:
+    image: postgres
+    environment:
+      #- ASPNETCORE_ENVIRONMENT=Development
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USERNAME=${POSTGRES_USERNAME}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_INTERNAL_PORT=${POSTGRES_INTERNAL_PORT}
+      - POSTGRES_EXTERNAL_PORT=${POSTGRES_EXTERNAL_PORT}
+    restart: always
+    user: ${POSTGRES_USERNAME}
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 4096M
+        reservations:
+          cpus: '1.0'
+          memory: 1024M
+    networks:
+      - dev
+    ports:
+      - ${POSTGRES_INTERNAL_PORT}:${POSTGRES_EXTERNAL_PORT}
+    healthcheck:
+      test: [ "CMD", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+volumes:
+  db-data:
