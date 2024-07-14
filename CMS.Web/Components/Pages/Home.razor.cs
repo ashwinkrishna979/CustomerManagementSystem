@@ -6,7 +6,12 @@ namespace CMS.Web.Components.Pages
     {
         private Customer[]? customers;
         private List<Customer>? customerData;
-        private Customer selectedCustomer;
+        private Customer selectedCustomer=new Customer
+            {
+                Name = "",
+                Email = "",
+                Phone = ""
+            };
 
         private Modal modal { get; set; }
         
