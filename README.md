@@ -12,23 +12,20 @@ This project is a self-contained solution that adds, edits, and deletes customer
 - **Backend**: ASP.NET Core Web API
 - **Database**: PostgreSQL
 - **ORM**: Entity Framework Core
-- **Containerization**: Docker, Docker Compose
-
-## Setup Instructions
+- **Containerization**: Docker
 
 ### Prerequisites
 
-- Docker installed on your machine
-- .NET 6.0 SDK installed on your machine
+- Docker should be installed and running on your machine (https://docs.docker.com/desktop/install/windows-install/)
 
 ### Running the Application
 
 1. **Clone the Repository**:
 
     ```sh
-    git clone <your-repository-url>
-    cd <your-repository-directory>
+    https://github.com/ashwinkrishna979/CustomerManagementSystem.git
     ```
+    open root directory(CustomerManagementSystem) in terminal.
 
 2. **Build and Run with Docker Compose**:
 
@@ -43,52 +40,27 @@ This project is a self-contained solution that adds, edits, and deletes customer
 3. **Access the Application**:
 
     Once the Docker containers are running, you can access the application in your web browser at:
-
     ```
-    http://localhost:5000
-    ```
-
-    The API will be running at:
-
-    ```
-    http://localhost:5001
+    http://localhost:8080/
     ```
 
 ## Project Structure
 
-- `/Client`: Contains the Blazor frontend project.
-- `/Server`: Contains the ASP.NET Core Web API project.
-- `/Shared`: Contains shared models and code used by both Client and Server.
-- `/Data`: Contains Entity Framework Core DbContext and migration files.
-- `docker-compose.yml`: Docker Compose configuration file.
+- `/CMS.Web`: Contains the ASP.NET Blazor frontend project.
+- `/CMS.UseCases`: Contains the ASP.NET Core Web API project. Appictaion's usecases and validation logic are written here.
+- `/CMS.CoreBusiness`: Contains shared models.
+- `/CMS.Data`: Contains Entity Framework Core DbContext and migration files.
+- `/compose.yml`: Docker Compose configuration file.
+- `/migration.sh`: Contains Database migration shell script to automate migration on docker-compose.
+- /.env : Contains postgres database connection configuration.
 
 ## Database Configuration
 
-The PostgreSQL database is configured in the `docker-compose.yml` file. The connection string is defined in the `appsettings.json` file of the Server project.
-
-## API Endpoints
-
-The following endpoints are available in the API:
-
-- **GET** `/api/customers`: Retrieve all customers.
-- **GET** `/api/customers/{id}`: Retrieve a customer by ID.
-- **POST** `/api/customers`: Create a new customer.
-- **PUT** `/api/customers/{id}`: Update an existing customer.
-- **DELETE** `/api/customers/{id}`: Delete a customer.
-
-## Important Notes
-
-- This task focuses on functionality rather than UI/UX design.
-- The project includes basic CRUD operations for managing customers.
-- Please review the code for more details on the implementation and feel free to ask any questions during the interview.
+The PostgreSQL database is configured in the `docker-compose.yml` file. The connection string is defined in the `appsettings.json` file and  .env.
 
 ## Conclusion
 
 Thank you for the opportunity to work on this task. I look forward to discussing my approach and design decisions with you in the interview.
 
-If you have any questions or need further information, please feel free to contact me at [your-email@example.com].
-
-Best regards,
-
-[Your Name]
+If you have any questions or need further information, please feel free to contact me at ashwinkrishna979@gmail.com.
 
