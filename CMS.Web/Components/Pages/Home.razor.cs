@@ -16,7 +16,8 @@ namespace CMS.Web.Components.Pages
         private int PageSize = 5;
         private int CurrentPage = 1;
 
-        private List<Customer> CurrentPageItems => customers!.Skip((CurrentPage - 1) * PageSize).Take(PageSize).ToList();
+        private List<Customer> CurrentPageItems => customers!.OrderBy(customer => customer.Id).Skip
+        ((CurrentPage - 1) * PageSize).Take(PageSize).ToList();
         private bool IsFirstPage => CurrentPage == 1;
         private bool IsLastPage => CurrentPage >= TotalPages;
         private int TotalPages => (int)Math.Ceiling((double)customers!.Count() / PageSize);
