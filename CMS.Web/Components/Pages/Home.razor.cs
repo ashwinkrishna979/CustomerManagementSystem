@@ -10,7 +10,17 @@ namespace CMS.Web.Components.Pages
         private Modal? editModal { get; set; }
         private Modal? addModal { get; set; }
 
-         private Modal? deleteModal { get; set; }
+        private Modal? deleteModal { get; set; }
+
+        // Pagination variables
+        private int PageSize = 5;
+        private int CurrentPage = 1;
+
+        private List<Customer> CurrentPageItems => customers!.Skip((CurrentPage - 1) * PageSize).Take(PageSize).ToList();
+        private bool IsFirstPage => CurrentPage == 1;
+        private bool IsLastPage => CurrentPage >= TotalPages;
+        private int TotalPages => (int)Math.Ceiling((double)customers!.Count() / PageSize);
+
         private Customer selectedCustomer=new Customer
             {
                 Name = string.Empty,
@@ -22,7 +32,6 @@ namespace CMS.Web.Components.Pages
         {        
             await Task.Delay(500);
             await FetchCustomerData();
-
         }
 
         private void SetSelectedCustomer(Customer? customer=null)
@@ -116,6 +125,22 @@ namespace CMS.Web.Components.Pages
             catch(Exception SaveCustomerDeletionErr)
             {
                 Console.WriteLine($"Error in saving customer deletion: {SaveCustomerDeletionErr.Message}");
+            }    
+        }
+
+        private void GoToPreviousPage()
+        {
+            if (!IsFirstPage)
+            {
+                CurrentPage--;
+            }
+        }
+
+        private void GoToNextPage()
+        {
+            if (!IsLastPage)
+            {
+                CurrentPage++;
             }
         }
 
