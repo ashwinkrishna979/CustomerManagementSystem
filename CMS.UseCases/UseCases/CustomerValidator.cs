@@ -4,8 +4,6 @@ using System.Threading.Tasks;
 using CMS.UseCases.UseCaseInterfaces;
 using CMS.CoreBusiness.Models;
 
-
-
 public class CustomerValidator:ICustomerValidator
 {
     public async Task<string> ValidateCustomerData(Customer customer)
@@ -28,7 +26,7 @@ public class CustomerValidator:ICustomerValidator
         if (string.IsNullOrWhiteSpace(customer.Phone))
             return "Phone number is required.";
         else if (!IsValidPhoneNumber(customer.Phone))
-            return "Phone number is not in a valid format.";
+            return "Phone number is not in a valid format (10 digit).";
 
         return string.Empty;
     }
