@@ -61,11 +61,11 @@ This project is a self-contained solution that adds, edits, and deletes customer
   The following is a sample query to get customer data from the database:
   ```
   select  "Id"
-,"Name"
-,"Email"
-,"Phone"
-from public."Customers"
-LIMIT 1000
+  ,Name"
+  ,"Email"
+  ,"Phone"
+  from public."Customers"
+  LIMIT 1000
   ```
 
 ## Conclusion
