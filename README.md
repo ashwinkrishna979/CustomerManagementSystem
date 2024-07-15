@@ -35,7 +35,7 @@ This project is a self-contained solution that adds, edits, and deletes customer
     docker-compose up --build
     ```
 
-    This will build and run the containers for the Blazor frontend, ASP.NET API backend, and PostgreSQL database.
+    This will build and run the containers for the web application server, and PostgreSQL database.
 
 3. **Access the Application**:
 
@@ -47,16 +47,26 @@ This project is a self-contained solution that adds, edits, and deletes customer
 ## Project Structure
 
 - `/CMS.Web`: Contains the ASP.NET Blazor frontend project.
-- `/CMS.UseCases`: Contains the ASP.NET Core Web API project. Appictaion's usecases and validation logic are written here.
+- `/CMS.UseCases`: Contains the ASP.NET Core Web API project. Applications use cases and validation logic are written here.
 - `/CMS.CoreBusiness`: Contains shared models.
-- `/CMS.Data`: Contains Entity Framework Core DbContext and migration files.
+- `/CMS.Data`: Contains Entity Framework Core, DbContext and migration files.
 - `/compose.yml`: Docker Compose configuration file.
 - `/migration.sh`: Contains Database migration shell script to automate migration on docker-compose.
-- /.env : Contains postgres database connection configuration.
+- /.env : Contains Postgres database connection configuration.
 
 ## Database Configuration
 
-The PostgreSQL database is configured in the `docker-compose.yml` file. The connection string is defined in the `appsettings.json` file and  .env.
+- The PostgreSQL database is configured in the `docker-compose.yml` file. The connection string is defined in the `appsettings.json` file and  .env.
+- You can you Azure Data Studio or pgAdmin 4 to connect the database for managing it externally.
+  The following is a sample query to get customer data from the database:
+  ```
+  select  "Id"
+,"Name"
+,"Email"
+,"Phone"
+from public."Customers"
+LIMIT 1000
+  ```
 
 ## Conclusion
 
