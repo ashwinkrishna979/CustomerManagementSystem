@@ -70,10 +70,13 @@ arrow_forward_ios
 <Modal @ref="editModal">
     <Title>Edit Customer</Title>
     <Body>
+    <div style="text-align: center;">
+        <p>@alert</p>
+    </div>
         <CustomerForm SelectedCustomer="selectedCustomer" />
     </Body>
     <Footer>
-        <button type="button" class="btn btn-primary" @onclick="SaveCustomerChange">Save</button>
+        <button type="button" class="btn btn-primary" @onclick="()=>SaveCustomerChange(selectedCustomer)">Save</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal" @onclick="() => editModal!.Close()">Cancel</button>
     </Footer>
 </Modal>
@@ -81,10 +84,13 @@ arrow_forward_ios
 <Modal @ref="addModal">
     <Title>Add Customer</Title>
     <Body>
+    <div style="text-align: center;">
+        <p>@alert</p>
+    </div>
         <CustomerForm SelectedCustomer="selectedCustomer" />
     </Body>
     <Footer>
-        <button type="button" class="btn btn-primary" @onclick="SaveNewCustomer">Save</button>
+        <button type="button" class="btn btn-primary" @onclick="()=>SaveNewCustomer(selectedCustomer)">Save</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal" @onclick="() => addModal!.Close()">Cancel</button>
     </Footer>
 </Modal>

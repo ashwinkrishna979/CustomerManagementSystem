@@ -7,5 +7,6 @@ namespace CMS.UseCases.UseCaseInterfaces
         Task AddCustomer(Customer customer);
         Task EditCustomer(Customer customer);
         Task DeleteCustomer(Customer customer);
+        
     }
 }

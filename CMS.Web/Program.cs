@@ -22,6 +22,8 @@ builder.Services.AddScoped<ICustomerRepository,CustomerRepository>();
 
 //UseCase Dependencies
 builder.Services.AddScoped<ICustomerUseCase,CustomerUseCase>();
+builder.Services.AddScoped<ICustomerValidator,CustomerValidator>();
+
 
 var app = builder.Build();
 

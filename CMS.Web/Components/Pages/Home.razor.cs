@@ -1,6 +1,7 @@
 using CMS.UseCases.UseCaseInterfaces;
 using CMS.CoreBusiness.Models;
 using System.Runtime.CompilerServices;
+using CMS.UseCases.UseCases;
 namespace CMS.Web.Components.Pages
 {
     public partial class Home
@@ -11,6 +12,7 @@ namespace CMS.Web.Components.Pages
         private Modal? addModal { get; set; }
 
         private Modal? deleteModal { get; set; }
+        private string alert="";
 
         // Pagination variables
         private int PageSize = 5;
@@ -66,14 +68,21 @@ namespace CMS.Web.Components.Pages
             customers = customerData.ToArray();
 
         }
-        private void EditCustomer(Customer customer)
+        private void InitialiseAlert()
         {
+            alert=string.Empty;
+            StateHasChanged();
+        }
+        private async void EditCustomer(Customer customer)
+        {
+            InitialiseAlert();
             SetSelectedCustomer(customer);
             editModal?.Open();
         }
 
         private void AddCustomer()
         {
+            InitialiseAlert();
             SetSelectedCustomer();
             addModal!.Open();
         }
@@ -84,14 +93,23 @@ namespace CMS.Web.Components.Pages
             deleteModal?.Open();
         }
 
-        private async void SaveCustomerChange()
+        private async void SaveCustomerChange(Customer customer)
         {
             try
             {
-                await CustomerUseCase.EditCustomer(selectedCustomer);
-                editModal!.Close();
-                await FetchCustomerData();
-                StateHasChanged();
+                string validationIssue=await CustomerValidator.ValidateCustomerData(customer);
+                if (validationIssue==string.Empty)
+                {
+                    await CustomerUseCase.EditCustomer(selectedCustomer);
+                    editModal!.Close();
+                    await FetchCustomerData();
+                    StateHasChanged();
+                }
+                else
+                {
+                    alert=validationIssue;
+                    StateHasChanged();
+                }
 
             }
             catch (Exception SaveCustomerChangeErr){
@@ -99,14 +117,23 @@ namespace CMS.Web.Components.Pages
             }
         }
 
-        private async void SaveNewCustomer()
+        private async void SaveNewCustomer(Customer customer)
         {
             try
             {
-                await CustomerUseCase.AddCustomer(selectedCustomer);
-                addModal!.Close();
-                await FetchCustomerData();
-                StateHasChanged();
+                String validationIssue=await CustomerValidator.ValidateCustomerData(customer);
+                if (validationIssue==string.Empty)
+                {
+                    await CustomerUseCase.AddCustomer(selectedCustomer);
+                    addModal!.Close();
+                    await FetchCustomerData();
+                    StateHasChanged();
+                }
+                else
+                {
+                    alert=validationIssue;
+                    StateHasChanged();
+                }
 
             }
             catch (Exception SaveNewCustomerErr){
